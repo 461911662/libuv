@@ -145,8 +145,8 @@ void uv__io_poll(uv_loop_t* loop, int timeout) {
   int have_signals;
   struct pollfd* pe;
   int fd;
-  int user_timeout;
-  int reset_timeout;
+  int user_timeout = 0;
+  int reset_timeout = 0;
 
   if (loop->nfds == 0) {
     assert(uv__queue_empty(&loop->watcher_queue));
@@ -173,11 +173,15 @@ void uv__io_poll(uv_loop_t* loop, int timeout) {
 
   /* Prepare a set of signals to block around poll(), if any.  */
   pset = NULL;
+#ifdef SIGPROF
   if (loop->flags & UV_LOOP_BLOCK_SIGPROF) {
     pset = &set;
     sigemptyset(pset);
     sigaddset(pset, SIGPROF);
   }
+#else
+  (void) set;
+#endif
 
   assert(timeout >= -1);
   time_base = loop->time;

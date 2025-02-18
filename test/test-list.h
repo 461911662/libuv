@@ -600,7 +600,7 @@ TASK_LIST_START
   TEST_ENTRY  (pipe_connect_on_prepare)
 
   TEST_ENTRY  (pipe_server_close)
-#ifndef _WIN32
+#if !defined(_WIN32) && !defined(__NuttX__)
   TEST_ENTRY  (pipe_close_stdout_read_stdin)
 #endif
   /* Seems to be either about 0.5s or 5s, depending on the OS. */
@@ -1169,7 +1169,7 @@ TASK_LIST_START
   TEST_ENTRY  (req_type_name)
   TEST_ENTRY  (getters_setters)
 
-#ifndef _WIN32
+#if !defined(_WIN32) && !defined(__NuttX__)
   TEST_ENTRY  (fork_timer)
   TEST_ENTRY  (fork_socketpair)
   TEST_ENTRY  (fork_socketpair_started)

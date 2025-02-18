@@ -60,7 +60,7 @@
 # include <crt_externs.h>
 # include <mach-o/dyld.h> /* _NSGetExecutablePath */
 # define environ (*_NSGetEnviron())
-#else /* defined(__APPLE__) && !TARGET_OS_IPHONE */
+#elif !defined(__NuttX__) /* defined(__APPLE__) && !TARGET_OS_IPHONE */
 extern char** environ;
 #endif /* !(defined(__APPLE__) && !TARGET_OS_IPHONE) */
 
@@ -1000,7 +1000,7 @@ int uv_getrusage(uv_rusage_t* rusage) {
   rusage->ru_stime.tv_sec = usage.ru_stime.tv_sec;
   rusage->ru_stime.tv_usec = usage.ru_stime.tv_usec;
 
-#if !defined(__MVS__) && !defined(__HAIKU__)
+#if !defined(__MVS__) && !defined(__HAIKU__) && !defined(__NuttX__)
   rusage->ru_maxrss = usage.ru_maxrss;
   rusage->ru_ixrss = usage.ru_ixrss;
   rusage->ru_idrss = usage.ru_idrss;
