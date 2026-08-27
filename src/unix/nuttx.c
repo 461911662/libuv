@@ -222,7 +222,7 @@ ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags) {
   return UV_ENOTSUP;
 }
 
-ssize_t sendmsg(int sockfd, struct msghdr *msg, int flags) {
+ssize_t sendmsg(int sockfd, const struct msghdr *msg, int flags) {
   return UV_ENOTSUP;
 }
 
